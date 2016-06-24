@@ -36,7 +36,7 @@ class Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Grid
 
           $this->addColumn('categories', array(
               'header' => Mage::helper('purchase')->__('Categories'),
-              'renderer' => 'Horsebrands_Rewrites_Block_Adminhtml_Purchase_SupplyNeeds_Renderer_Categories',
+              'renderer' => 'Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Renderer_Categories',
               'filter_condition_callback' => array($this, '_categoryFilter'),
           ));
 

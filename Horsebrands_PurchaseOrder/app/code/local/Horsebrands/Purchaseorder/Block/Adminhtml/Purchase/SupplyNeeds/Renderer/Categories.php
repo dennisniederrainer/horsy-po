@@ -5,15 +5,29 @@ class Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Renderer_Ca
 
   public function render(Varien_Object $row) {
     $productid =  $row->getData('product_id');
-    $categories = Mage::getModel('catalog/product')->load($productid)->getCategoryCollection();
+    $product = Mage::getModel('catalog/product')->load($productid);
+    $categories = $product->getCategoryCollection();
     $value = '';
 
-    foreach ($categories as $cat) {
-      $value .= Mage::getModel('catalog/category')->load($cat->getId())->getName().' (id: '.$cat->getId().'), ';
+    $this->getCategoryString($categories, $value);
+
+    $parentIds = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
+    if( $parentIds ) {
+      foreach ($parentIds as $parentId) {
+        $product = Mage::getModel('catalog/product')->load($parentId);
+        $categories = $product->getCategoryCollection();
+        $this->getCategoryString($categories, $value);
+      }
     }
 
-    $value = substr($value, 0, -2);
+    $value = substr($value, 0, -6);
 
     return $value;
+  }
+
+  protected function getCategoryString($categories, &$value) {
+    foreach ($categories as $cat) {
+      $value .= Mage::getModel('catalog/category')->load($cat->getId())->getName().' (id: '.$cat->getId().'),<br/>';
+    }
   }
 }

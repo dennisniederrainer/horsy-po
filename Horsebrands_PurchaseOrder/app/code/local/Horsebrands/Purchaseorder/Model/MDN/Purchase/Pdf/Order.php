@@ -1,6 +1,6 @@
 <?php
 
-class Horsebrands_Rewrites_Model_Purchase_Pdf_Order extends MDN_Purchase_Model_Pdf_Order {
+class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Order extends MDN_Purchase_Model_Pdf_Order {
   protected $_MARGIN = 25;
 
   public function getPdf($orders = array()) {

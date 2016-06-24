@@ -7,9 +7,9 @@
     </modules>
     <global>
       <blocks>
-        <horsebrands_po>
+        <horsebrands_purchaseorder>
             <class>Horsebrands_Purchaseorder_Block</class>
-        </horsebrands_po>
+        </horsebrands_purchaseorder>
         <Purchase>
           <rewrite>
             <SupplyNeeds_Grid>Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Grid</SupplyNeeds_Grid>
@@ -18,14 +18,15 @@
         </Purchase>
       </blocks>
       <models>
-          <horsebrands_po>
+          <horsebrands_purchaseorder>
               <class>Horsebrands_Purchaseorder_Model</class>
-          </horsebrands_po>
-          <purchase>
+          </horsebrands_purchaseorder>
+          <Purchase>
             <rewrite>
-              <pdf_order>Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Order</pdf_order>
+              <Pdf_Order>Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Order</Pdf_Order>
+              <OrderProduct>Horsebrands_Purchaseorder_Model_MDN_Purchase_OrderProduct</OrderProduct>
             </rewrite>
-          </purchase>
+          </Purchase>
       </models>
       <resources>
         <horsebrands_po_setup>
