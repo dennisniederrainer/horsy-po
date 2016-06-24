@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Horsebrands_Purchaseorder>
+            <active>true</active>
+            <codePool>local</codePool>
+			      <depends>
+                <MDN_Purchase/>
+            </depends>
+        </Horsebrands_Purchaseorder>
+    </modules>
+</config>
