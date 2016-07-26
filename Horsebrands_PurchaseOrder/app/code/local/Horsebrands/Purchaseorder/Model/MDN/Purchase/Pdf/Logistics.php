@@ -56,7 +56,7 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
                 foreach ($salesorders as $salesorder) {
                   // order no.
                   $orderno = $salesorder->getIncrementId();
-                  $page->drawText($this->TruncateTextToWidth($page, $orderno, 95), 15, $this->y, 'UTF-8');
+                  $page->drawText($this->TruncateTextToWidth($page, $orderno, 70), 15, $this->y, 'UTF-8');
 
                   // lastname
                   $lastname = $salesorder->getBillingAddress()->getLastname();
@@ -64,11 +64,11 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
 
                   // sku
                   $sku = $item->getsku();
-                  $page->drawText($this->TruncateTextToWidth($page, $sku, 95), 150, $this->y, 'UTF-8');
+                  $page->drawText($this->TruncateTextToWidth($page, $sku, 95), 170, $this->y, 'UTF-8');
 
                   // sku supploer
                   $sku_sup = $item->getpop_supplier_ref();
-                  $page->drawText($this->TruncateTextToWidth($page, $sku_sup, 95), 245, $this->y, 'UTF-8');
+                  $page->drawText($this->TruncateTextToWidth($page, $sku_sup, 95), 265, $this->y, 'UTF-8');
 
                   //name
                   $caption = $this->WrapTextToWidth($page, $item->getpop_product_name(), 200);
@@ -128,7 +128,7 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
           if ($order->getpo_status() != MDN_Purchase_Model_Order::STATUS_INQUIRY) {
               $page->drawText('Gesamt:', 500, $this->y, 'UTF-8');
               // $page->drawText('Gesamtbetrag:', 500, $this->y, 'UTF-8');
-              $this->y -= 16;
+              // $this->y -= 16;
               $page->drawText($itemsTotal, 550, $this->y, 'UTF-8');
               // $page->drawText($order->getCurrency()->formatTxt($order->getTotalHt()), 530, $this->y, 'UTF-8');
           }
@@ -149,8 +149,8 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
 
        $page->drawText(mage::helper('purchase')->__('Order No.'), 15, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Lastname'), 85, $this->y, 'UTF-8');
-       $page->drawText(mage::helper('purchase')->__('Sku'), 150, $this->y, 'UTF-8');
-       $page->drawText(mage::helper('purchase')->__('Sku Supplier'), 245, $this->y, 'UTF-8');
+       $page->drawText(mage::helper('purchase')->__('Sku'), 170, $this->y, 'UTF-8');
+       $page->drawText(mage::helper('purchase')->__('Sku Supplier'), 275, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Product Name'), 340, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Qty'), 550, $this->y, 'UTF-8');
 
@@ -180,7 +180,7 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
    }
 
    public function drawHeader(&$page, $title, $StoreId = null) {
-      //  $this->insertLogo($page, $StoreId);
+      $this->y -= 20;
 
        $name = $title;
        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD), 14);
