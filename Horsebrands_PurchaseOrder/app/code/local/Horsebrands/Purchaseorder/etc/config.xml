@@ -37,4 +37,15 @@
         </horsebrands_po_setup>
     </resources>
   </global>
+  <!-- <admin>
+		<routers>
+			<Purchase>
+				<args>
+					<modules>
+						<horsebrands_purchaseorder after="MDN_Purchase">Horsebrands_Purchaseorder</horsebrands_purchaseorder>
+					</modules>
+				</args>
+			</Purchase>
+		</routers>
+	</admin> -->
 </config>
