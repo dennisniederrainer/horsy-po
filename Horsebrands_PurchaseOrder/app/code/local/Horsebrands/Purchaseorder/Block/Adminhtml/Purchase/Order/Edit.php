@@ -8,7 +8,7 @@ class Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_Order_Edit extends MDN_
 		$this->_addButton(
         'print_logistics',
         array(
-            'label'     => Mage::helper('purchase')->__('Print Logistics'),
+            'label'     => $this->__('Print Logistics'),
             'onclick'   => "window.location.href='".$this->getUrl('Purchase/Orders/printLogistics').'po_num/'.$this->getOrder()->getId()."'",
             'class'     => 'go'
         ),
