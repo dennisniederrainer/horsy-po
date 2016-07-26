@@ -150,7 +150,7 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
        $page->drawText(mage::helper('purchase')->__('Order No.'), 15, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Lastname'), 85, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Sku'), 170, $this->y, 'UTF-8');
-       $page->drawText(mage::helper('purchase')->__('Sku Supplier'), 275, $this->y, 'UTF-8');
+       $page->drawText(mage::helper('purchase')->__('Sku Supplier'), 265, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Product Name'), 340, $this->y, 'UTF-8');
        $page->drawText(mage::helper('purchase')->__('Qty'), 550, $this->y, 'UTF-8');
 
