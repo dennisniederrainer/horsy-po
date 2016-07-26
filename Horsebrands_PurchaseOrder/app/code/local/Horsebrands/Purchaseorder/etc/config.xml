@@ -13,7 +13,9 @@
         <Purchase>
           <rewrite>
             <SupplyNeeds_Grid>Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Grid</SupplyNeeds_Grid>
+            <Order_Edit>Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_Order_Edit</Order_Edit>
             <Order_Edit_Tabs_Info>Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_Order_Edit_Tabs_Info</Order_Edit_Tabs_Info>
+            <Order_Edit_Tabs_SendToSupplier>Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_Order_Edit_Tabs_SendToSupplier</Order_Edit_Tabs_SendToSupplier>
           </rewrite>
         </Purchase>
       </blocks>
@@ -36,4 +38,15 @@
         </horsebrands_po_setup>
     </resources>
   </global>
+  <admin>
+		<routers>
+			<horsebrands_purchaseorder>
+				<args>
+					<modules>
+						<horsebrands_purchaseorder before="MDN_Purchase">Horsebrands_Purchaseorder_Adminhtml</horsebrands_purchaseorder>
+					</modules>
+				</args>
+			</horsebrands_purchaseorder>
+		</routers>
+	</admin>
 </config>

@@ -37,7 +37,9 @@ class Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Grid
           $this->addColumn('categories', array(
               'header' => Mage::helper('purchase')->__('Categories'),
               'renderer' => 'Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Renderer_Categories',
-              'filter_condition_callback' => array($this, '_categoryFilter'),
+              // 'filter_condition_callback' => array($this, '_callbackCategoryFilter'),
+              'filter' => 'horsebrands_purchaseorder/Widget_Column_Filter_ProductCategories',
+              // 'filter_condition_callback' => array($this, '_categoryFilter'),
           ));
 
           $this->addColumn('name', array(
@@ -118,17 +120,45 @@ class Horsebrands_Purchaseorder_Block_Adminhtml_Purchase_SupplyNeeds_Grid
           return parent::_prepareColumns();
       }
 
-      protected function _categoryFilter($collection, $column)
-    {
+    protected function _callbackCategoryFilter($collection, $column) {
+        if (!$value = $column->getFilter()->getValue()) {
+            return null;
+        }
+
+        $collection->getSelect()->joinLeft(
+            array('cat_prod' => 'catalog_category_product'),
+            'main_table.product_id = cat_prod.product_id',
+            array('cat_prod.category_id')
+          )->where("cat_prod.category_id = '".$column->getFilter()->getValue()."'");
+        // $collection->joinField(
+        //     'category_id',
+        //     'catalog/category_product',
+        //     'category_id',
+        //     'product_id = entity_id',
+        //     '{{table}}.category_id=' . $column->getFilter()->getValue(),
+        //     'inner'
+        // );
+    }
+
+    protected function _categoryFilter($collection, $column) {
         if (!$value = $column->getFilter()->getValue()) {
             return $this;
         }
 
-        $this->getCollection()->getSelect()->join(
-            array('cat' => 'catalog_category_product'),
-            'main_table.product_id = cat.product_id',
-            array('cat.category_id')
-          )->where("cat.category_id = ?",$value);
+        $this->getCollection()->getSelect()->joinLeft(
+            array('cat_prod' => 'catalog_category_product'),
+            'main_table.product_id = cat_prod.product_id',
+            array('cat_prod.category_id')
+          // )->where("cat.category_id = ?",$value);
+          // )->join(
+          //   array('cat' => 'catalog_category_flat_store_1'),
+          //   'cat_prod.category_id = cat.entity_id',
+          //   array('cat.name')
+          // )
+          )->where("cat_prod.category_id = '".$value."'")
+          ->group("main_table.product_id");
+
+        // mage::log($this->getCollection()->getSelect(), null, 'zack.log');
 
         return $this;
     }
