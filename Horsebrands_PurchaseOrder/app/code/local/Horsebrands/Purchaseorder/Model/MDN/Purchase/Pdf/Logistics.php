@@ -44,7 +44,8 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
 
           $itemsTotal = 0;
           //Display products
-          foreach ($order->getProducts() as $item) {
+          // foreach ($order->getProducts() as $item) {
+          foreach ($this->_getPendingProducts() as $item) {
 
               //font initialization
               $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 10);
@@ -225,5 +226,21 @@ class Horsebrands_Purchaseorder_Model_MDN_Purchase_Pdf_Logistics extends MDN_Pur
        $this->DrawMultilineText($page, $supplier, $this->_PAGE_WIDTH / 2 + 10, $this->y, 10, 0, 16);
 
        $this->y -= 110;
+   }
+
+   protected function _getPendingProducts($orderId) {
+       $collection = mage::getResourceModel('Purchase/OrderProduct_collection')
+                       ->addFieldToFilter('pop_order_num', $orderId);
+
+       //only products not supplied
+       $collection->getSelect()->where('(pop_qty - pop_supplied_qty)  >0');
+
+       //join with product
+       $productTableName = mage::getModel('Purchase/Constant')->getTablePrefix() . 'catalog_product_entity';
+       $collection->getSelect()->joinLeft($productTableName,
+               'pop_product_id=`' . $productTableName . '`.entity_id',
+               array('sku' => 'sku'));
+
+       return $collection;
    }
 }
